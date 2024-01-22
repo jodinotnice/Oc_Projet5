@@ -120,6 +120,7 @@
       $(`#${lightboxId}`).modal("toggle");
     },
     prevImage() {
+      console.log("prevImage function called");
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
@@ -154,11 +155,12 @@
         }
       });
       next =
-        imagesCollection[index] ||
+        imagesCollection[index - 1] ||
         imagesCollection[imagesCollection.length - 1];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     nextImage() {
+      console.log("nextImage function called");
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
@@ -192,7 +194,7 @@
           index = i;
         }
       });
-      next = imagesCollection[index] || imagesCollection[0];
+      next = imagesCollection[index + 1] || imagesCollection[0];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     createLightBox(gallery, lightboxId, navigation) {
@@ -220,7 +222,7 @@
     },
     showItemTags(gallery, position, tags) {
       var tagItems =
-        '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
+        '<li class="nav-item"><span class="nav-link all-tag-link active-tag"  data-images-toggle="all">Tous</span></li>';
       $.each(tags, function(index, value) {
         tagItems += `<li class="nav-item active">
                 <span class="nav-link"  data-images-toggle="${value}">${value}</span></li>`;
@@ -234,13 +236,14 @@
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
+
+      $(".all-tag-link").addClass("active");
     },
     filterByTag() {
-      if ($(this).hasClass("active-tag")) {
-        return;
-      }
-      $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+
+      $(".nav-link").removeClass("active");
+
+      $(this).addClass("active");
 
       var tag = $(this).data("images-toggle");
 
