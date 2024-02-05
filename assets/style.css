@@ -355,3 +355,15 @@ input[type="submit"] {
 	}
 }
 
+footer {
+	background-color: #333; 
+	color: white;
+	font-size: 12px;
+	padding: 20px;
+	text-align: center;
+}
+
+div li {
+	
+	list-style-type: none;
+}
